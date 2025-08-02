@@ -3,7 +3,7 @@ version: '3.9'
 services:
   web:
     build: .
-    container_name: fastapi_app
+    container_name: fastapi_appication
     ports:
       - "8000:8000"
     depends_on:
@@ -12,8 +12,8 @@ services:
       - DATABASE_URL=postgresql://ecommerce_user:ecommerce_password@db:5432/ecommercedb
 
   db:
-    image: postgresql:15
-    container_name: postgres_db
+    image: postgres:15
+    container_name: postgres_database
     environment:
       POSTGRES_USER: ecommerce_user
       POSTGRES_PASSWORD: ecommerce_password
