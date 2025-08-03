@@ -1,9 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.db.base import Base
-from app.db.session import engine
+from app.core.lifespan import lifespan
 
-app = FastAPI()
+app = FastAPI(lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
@@ -12,8 +11,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"]
 )
-
-Base.metadata.create_all(bind=engine)
 
 # Health check endpoint
 @app.get("/")
