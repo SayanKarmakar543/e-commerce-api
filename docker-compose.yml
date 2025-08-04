@@ -7,8 +7,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    environment:
-      - DATABASE_URL=postgresql://ecommerce_user:ecommerce_password@db:5432/ecommercedb
+    env_file:
+      - .env
 
   db:
     image: postgres:15
