@@ -1,13 +1,29 @@
 from app.db.models.user import User  
 from sqlalchemy.orm import Session
 from app.schemas.user_schema import UserRequest
+from fastapi import HTTPException
+from fastapi import status
 
 
 def get_user_repository(db: Session):
 
-    return db.query(User).all()
+    users = db.query(User).all()
+
+    if not users:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Users not found."
+        )
 
 def create_user_repository(db: Session, user_request: UserRequest):
+
+    # Check if the email already exists
+    existing_email = db.query(User).filter(User.email==user_request.email).first()
+    if existing_email:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Email already exists."
+        )   
 
     create_user_model = User(
         name=user_request.name,
