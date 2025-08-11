@@ -2,7 +2,7 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import Field
 
-class Settings(BaseSettings):
+class ConfigSettings(BaseSettings):
     SQLALCHEMY_DATABASE_URL: str = Field(..., alias="DATABASE_URL")
 
     model_config = SettingsConfigDict(
@@ -11,4 +11,4 @@ class Settings(BaseSettings):
         extra="ignore"  # Ignore any unrecognized env vars
     )
 
-settings = Settings()
+config_settings = ConfigSettings()

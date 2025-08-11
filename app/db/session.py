@@ -1,11 +1,11 @@
 from sqlalchemy import create_engine
-from app.core.config import settings
+from app.core.config import config_settings
 from sqlalchemy.orm import sessionmaker, Session
 from typing import Annotated
 from fastapi import Depends
 
 engine = create_engine(
-    settings.SQLALCHEMY_DATABASE_URL
+    config_settings.SQLALCHEMY_DATABASE_URL
 )
 
 SessionLocal = sessionmaker(
